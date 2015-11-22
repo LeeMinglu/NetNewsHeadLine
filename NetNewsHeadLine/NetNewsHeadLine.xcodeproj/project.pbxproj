@@ -14,6 +14,7 @@
 		1A4CE7D21C017CC30051CDA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A4CE7D01C017CC30051CDA6 /* LaunchScreen.storyboard */; };
 		1A4CE7EA1C01817E0051CDA6 /* MLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CE7E91C01817E0051CDA6 /* MLMainViewController.m */; };
 		1A4CE7ED1C0182160051CDA6 /* MLHeadLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CE7EC1C0182160051CDA6 /* MLHeadLineViewController.m */; };
+		1A4CE7F01C0194040051CDA6 /* MLHomeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4CE7EF1C0194040051CDA6 /* MLHomeLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		1A4CE7E91C01817E0051CDA6 /* MLMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMainViewController.m; sourceTree = "<group>"; };
 		1A4CE7EB1C0182160051CDA6 /* MLHeadLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLHeadLineViewController.h; sourceTree = "<group>"; };
 		1A4CE7EC1C0182160051CDA6 /* MLHeadLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLHeadLineViewController.m; sourceTree = "<group>"; };
+		1A4CE7EE1C0194040051CDA6 /* MLHomeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLHomeLabel.h; sourceTree = "<group>"; };
+		1A4CE7EF1C0194040051CDA6 /* MLHomeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLHomeLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,8 @@
 		1A4CE7E61C01813A0051CDA6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1A4CE7EE1C0194040051CDA6 /* MLHomeLabel.h */,
+				1A4CE7EF1C0194040051CDA6 /* MLHomeLabel.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				1A4CE7C41C017CC30051CDA6 /* main.m in Sources */,
 				1A4CE7EA1C01817E0051CDA6 /* MLMainViewController.m in Sources */,
 				1A4CE7ED1C0182160051CDA6 /* MLHeadLineViewController.m in Sources */,
+				1A4CE7F01C0194040051CDA6 /* MLHomeLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

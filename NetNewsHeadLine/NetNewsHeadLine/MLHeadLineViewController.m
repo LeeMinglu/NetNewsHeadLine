@@ -23,10 +23,7 @@ static NSString * const ID = @"headline";
    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 #pragma mark - Table view data source
 
@@ -39,7 +36,7 @@ static NSString * const ID = @"headline";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
-    // Configure the cell...
+    cell.textLabel.text = [NSString stringWithFormat:@"%@...%td",self.title, indexPath.row];
     
     return cell;
 }

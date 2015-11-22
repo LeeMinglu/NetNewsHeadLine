@@ -8,6 +8,7 @@
 
 #import "MLMainViewController.h"
 #import "MLHeadLineViewController.h"
+#import "MLHomeLabel.h"
 
 @interface MLMainViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *titleScrollView;
@@ -20,12 +21,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.titleScrollView.showsHorizontalScrollIndicator = NO;
     //添加子控制器
     [self setupChildVCes];
     
     
     //设置标题
     [self setupTitles];
+    
+    //添加默认控制器
+    MLHeadLineViewController *defaultVC = self.childViewControllers.firstObject;
+    
+    defaultVC.view.frame = self.contentScrollView.bounds;
+    
+    [self.contentScrollView addSubview:defaultVC.view];
     
 }
 
@@ -66,10 +76,10 @@
     CGFloat labelH = 30;
     
     for (NSUInteger i = 0 ; i < count; i++) {
-        UILabel *label = [[UILabel alloc] init];
+        MLHomeLabel *label = [[MLHomeLabel alloc] init];
         
         CGFloat labelX = i * labelW;
-        NSLog(@"%f",labelX);
+//        NSLog(@"%f",labelX);
         //设置frame
         label.frame = CGRectMake(labelX, labelY, labelW, labelH);
         
@@ -77,7 +87,7 @@
         
         UIViewController *vc = self.childViewControllers[i];
         label.text = vc.title;
-        NSLog(@"%@",label.text);
+//        NSLog(@"%@",label.text);
         
     }
     
@@ -85,19 +95,5 @@
     self.titleScrollView.contentSize = CGSizeMake(count * labelW, 0);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
