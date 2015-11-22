@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.contentScrollView.pagingEnabled = YES;
     self.contentScrollView.delegate = self;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -82,7 +83,7 @@
     NSUInteger count = self.childViewControllers.count;
     
     CGFloat labelY = 0;
-    CGFloat labelW = 80;
+    CGFloat labelW = 120;
     CGFloat labelH = 30;
     
     for (NSUInteger i = 0 ; i < count; i++) {
@@ -135,9 +136,33 @@
     CGFloat contentScrollViewWidth = scrollView.frame.size.width;
     //获取当前要显示控制器的索引
     NSUInteger index = scrollView.contentOffset.x / contentScrollViewWidth;
+
+    
+    //滚动标题栏
+    MLHomeLabel *label = self.titleScrollView.subviews[index];
+    
+    //设置frame
+    CGFloat width = self.titleScrollView.frame.size.width;
+    //计算偏移量
+    CGFloat offSetX = label.center.x - width * 0.5;
+    
+    //最大偏移量
+    CGFloat maxOffSetX = self.titleScrollView.contentSize.width - width;
+    
+    if (offSetX < 0) {
+        offSetX = 0;
+    }else if (offSetX > maxOffSetX) {
+        offSetX = maxOffSetX;
+    }
+    
+    [self.titleScrollView setContentOffset:CGPointMake(offSetX, 0)];
+    
     
 //    获得控制器
     UIViewController *vc = self.childViewControllers[index];
+    
+    //如果contentScollView中有内容说明在这个view已经存在了,直接返回.
+    if (vc.view.superview) return;
     
     CGFloat vcH = scrollView.frame.size.height;
     CGFloat vcW = scrollView.frame.size.width;

@@ -12,7 +12,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.font = [UIFont systemFontOfSize:13];
+        self.font = [UIFont systemFontOfSize:20];
         self.textAlignment = NSTextAlignmentCenter;
     }
     return self;
