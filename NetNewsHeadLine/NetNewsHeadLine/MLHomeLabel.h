@@ -10,4 +10,6 @@
 
 @interface MLHomeLabel : UILabel
 
+@property (nonatomic, assign) CGFloat scale;
+
 @end

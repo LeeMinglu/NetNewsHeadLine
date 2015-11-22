@@ -40,6 +40,9 @@
     CGFloat contentScrollWidth = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     self.contentScrollView.contentSize = CGSizeMake(contentScrollWidth, 0);
     
+    MLHomeLabel *label = self.titleScrollView.subviews.firstObject;
+    label.scale = 1.0;
+    
     
     //添加默认控制器
     MLHeadLineViewController *defaultVC = self.childViewControllers.firstObject;
@@ -105,8 +108,6 @@
         
         label.tag = i;
         
-        label.userInteractionEnabled = YES;
-        
         
     }
     
@@ -155,7 +156,14 @@
         offSetX = maxOffSetX;
     }
     
-    [self.titleScrollView setContentOffset:CGPointMake(offSetX, 0)];
+    [self.titleScrollView setContentOffset:CGPointMake(offSetX, 0) animated:YES];
+    
+    [self.titleScrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (index != idx) {
+            MLHomeLabel *label = self.titleScrollView.subviews[idx];
+            label.scale = 0.0;
+        }
+    }];
     
     
 //    获得控制器
@@ -178,6 +186,29 @@
     
     [self scrollViewDidEndScrollingAnimation:scrollView];
 
+}
+
+//scrollView滚动的时候调用
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat value = scrollView.contentOffset.x / scrollView.frame.size.width;
+    
+    //左右标题的索引
+    NSUInteger leftIndex = (NSUInteger)(value);
+    NSUInteger rightIndex = leftIndex + 1;
+    
+    //右边文字比例
+    CGFloat rightScale = value - leftIndex;
+    CGFloat leftScale = 1 - rightScale;
+    
+    MLHomeLabel *LeftLabel = self.titleScrollView.subviews[leftIndex];
+    
+    LeftLabel.scale = leftScale;
+    
+    if (rightIndex < self.titleScrollView.subviews.count) {
+        MLHomeLabel *rightLabel = self.titleScrollView.subviews[rightIndex];
+        rightLabel.scale = rightScale;
+    }
+    
 }
 
 
