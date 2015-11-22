@@ -190,7 +190,7 @@
 
 //scrollView滚动的时候调用
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat value = scrollView.contentOffset.x / scrollView.frame.size.width;
+    CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     
     //左右标题的索引
     NSUInteger leftIndex = (NSUInteger)(value);
