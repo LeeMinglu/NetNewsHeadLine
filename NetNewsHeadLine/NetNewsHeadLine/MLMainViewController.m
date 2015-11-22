@@ -114,7 +114,7 @@
 }
 
 //实现手势的方法
-- (void)clickLabel:(UITapGestureRecognizer *) recognizer{
+- (void)clickLabel:(UITapGestureRecognizer *)recognizer {
 //    NSLog(@"%@", recognizer.view);
     //获取点击了第几个label
     MLHomeLabel *label = (MLHomeLabel *)recognizer.view;
@@ -129,6 +129,7 @@
 
 #pragma mark 实现scrollView的代理方法
 
+//当滚动结束时执行的运作,当点击标题后contentView才能看到界面数据,是因为系统的View使用了懒加载.
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     
     CGFloat contentScrollViewWidth = scrollView.frame.size.width;
@@ -145,6 +146,13 @@
     vc.view.frame = CGRectMake(vcX, vcY, vcW, vcH);
     
     [self.contentScrollView addSubview:vc.view];
+}
+
+//用户拖动contentView结束的时候执行的代理方法
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    [self scrollViewDidEndScrollingAnimation:scrollView];
+
 }
 
 
