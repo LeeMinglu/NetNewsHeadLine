@@ -10,7 +10,7 @@
 #import "MLHeadLineViewController.h"
 #import "MLHomeLabel.h"
 
-@interface MLMainViewController ()
+@interface MLMainViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *titleScrollView;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
@@ -21,14 +21,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.contentScrollView.delegate = self;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.titleScrollView.showsHorizontalScrollIndicator = NO;
+    self.titleScrollView.showsVerticalScrollIndicator = NO;
+    
+    
     //添加子控制器
     [self setupChildVCes];
     
     
     //设置标题
     [self setupTitles];
+    
+    //设置contentScrollView的滚动范围
+    CGFloat contentScrollWidth = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
+    self.contentScrollView.contentSize = CGSizeMake(contentScrollWidth, 0);
+    
     
     //添加默认控制器
     MLHeadLineViewController *defaultVC = self.childViewControllers.firstObject;
@@ -89,10 +99,52 @@
         label.text = vc.title;
 //        NSLog(@"%@",label.text);
         
+        //添加点击label的手势方法
+        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)]];
+        
+        label.tag = i;
+        
+        label.userInteractionEnabled = YES;
+        
+        
     }
     
     //设置ScrollView的contentsize
     self.titleScrollView.contentSize = CGSizeMake(count * labelW, 0);
+}
+
+//实现手势的方法
+- (void)clickLabel:(UITapGestureRecognizer *) recognizer{
+//    NSLog(@"%@", recognizer.view);
+    //获取点击了第几个label
+    MLHomeLabel *label = (MLHomeLabel *)recognizer.view;
+    
+    //计算label的偏移量
+    CGFloat offSetX = label.tag * self.contentScrollView.frame.size.width;
+    
+//    设置contentScrollView的偏移量
+    [self.contentScrollView setContentOffset:CGPointMake(offSetX, 0) animated:YES];
+}
+
+
+#pragma mark 实现scrollView的代理方法
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    
+    CGFloat contentScrollViewWidth = scrollView.frame.size.width;
+    //获取当前要显示控制器的索引
+    NSUInteger index = scrollView.contentOffset.x / contentScrollViewWidth;
+    
+//    获得控制器
+    UIViewController *vc = self.childViewControllers[index];
+    
+    CGFloat vcH = scrollView.frame.size.height;
+    CGFloat vcW = scrollView.frame.size.width;
+    CGFloat vcY = 0;
+    CGFloat vcX = index * vcW;
+    vc.view.frame = CGRectMake(vcX, vcY, vcW, vcH);
+    
+    [self.contentScrollView addSubview:vc.view];
 }
 
 
